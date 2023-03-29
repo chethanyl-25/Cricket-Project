@@ -12,13 +12,33 @@ public class PlayerService {
     @Autowired
     private PlayerRepo playerRepo;
 
-    public Player save(Player player)
-    {
+    public Player save(Player player) {
         return this.playerRepo.save(player);
     }
 
-    public List<Player> findByNameLike(String name)
-    {
+    public List<Player> findByNameLike(String name) {
         return this.playerRepo.findByNameContaining(name);
+    }
+
+    public Player findById(long id) {
+        Player player = this.playerRepo.findById(id);
+        if (player != null)
+            return player;
+        else
+            return null;
+    }
+
+    public void deleteById(long id) {
+        this.playerRepo.deleteById(id);
+    }
+
+    public boolean updatePlayer(Player player) {
+        Player player1 = this.findById(player.getPlayerId());
+        this.playerRepo.save(player);
+        if (player1 == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
