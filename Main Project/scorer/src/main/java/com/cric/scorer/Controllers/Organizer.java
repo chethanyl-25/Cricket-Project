@@ -31,7 +31,7 @@ public class Organizer {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
+    //To delete a player by their id
     @DeleteMapping(value = "/organizer/deletePlayer")
     public ResponseEntity deletePlayer(@RequestParam("id") int id) {
         Player player = this.playerService.findById(id);
@@ -42,12 +42,15 @@ public class Organizer {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    //To update a player
+    //If player not present with given player.id returns NOT_FOUND httpStatusCode
+    //If player found then it just updates the tuple in player entity
     @PutMapping(value = "/organizer/updatePlayer")
     public ResponseEntity<Player> updatePlayer(@RequestBody Player player){
         boolean updated=this.playerService.updatePlayer(player);
         if(updated)
             return ResponseEntity.ok(player);
         else
-            return new ResponseEntity<>(player,HttpStatus.CREATED);
+            return new ResponseEntity<>(player,HttpStatus.NOT_FOUND);
     }
 }

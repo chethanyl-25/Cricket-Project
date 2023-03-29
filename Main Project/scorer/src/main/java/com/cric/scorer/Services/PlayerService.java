@@ -34,10 +34,10 @@ public class PlayerService {
 
     public boolean updatePlayer(Player player) {
         Player player1 = this.findById(player.getPlayerId());
-        this.playerRepo.save(player);
         if (player1 == null) {
             return false;
         } else {
+            this.playerRepo.save(player);
             return true;
         }
     }
