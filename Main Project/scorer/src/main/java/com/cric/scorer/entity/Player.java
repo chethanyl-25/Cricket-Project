@@ -22,6 +22,17 @@ public class Player {
     private String battingStyle;
     private String bowlingStyle;
 
-//    @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId +
+                ", name='" + name + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", role='" + role + '\'' +
+                ", battingStyle='" + battingStyle + '\'' +
+                ", bowlingStyle='" + bowlingStyle + '\'' +
+                '}';
+    }
+    //    @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
 //    private List<TeamSquad> teamSquadList;
 }

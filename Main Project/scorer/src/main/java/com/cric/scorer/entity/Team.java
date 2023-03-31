@@ -34,4 +34,16 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<TeamSquad> teamSquadList;
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "teamId=" + teamId +
+                ", teamName='" + teamName + '\'' +
+                ", captainId=" + captainId +
+                ", wicketKeeperId=" + wicketKeeperId +
+                ", match=" + match +
+                ", teamSquadList=" + teamSquadList +
+                '}';
+    }
 }
