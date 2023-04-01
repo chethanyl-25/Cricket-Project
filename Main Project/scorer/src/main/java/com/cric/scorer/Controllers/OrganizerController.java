@@ -1,6 +1,7 @@
 package com.cric.scorer.Controllers;
 
 import com.cric.scorer.DTOs.input.Match;
+import com.cric.scorer.DTOs.input.UpdateMatch;
 import com.cric.scorer.DTOs.output.MatchCreated;
 import com.cric.scorer.PersonaServices.GeneralServices;
 import com.cric.scorer.PersonaServices.OrganizerService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class OrganizerController {
@@ -72,5 +74,20 @@ public class OrganizerController {
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @PutMapping(value = "/organizer/{matchId}/squad/{Team}")
+    public ResponseEntity<Object> addTeamSquad(@PathVariable("matchId")long matchId,
+                                                @PathVariable("Team")String teamName,
+                                                @RequestBody List<Player> playerList){
+        if(this.organizerService.addSquad(matchId,teamName,playerList))
+        return new ResponseEntity<>("Players added Successfully",HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Some Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @PutMapping("/organizer")
+    public ResponseEntity<Object> updateMatch(@RequestBody UpdateMatch updateMatch)
+    {
+        this.organizerService.updateMatch(updateMatch);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -24,13 +24,13 @@ public class MatchDetailsServiceImpl implements MatchDetailsService {
 
     @Override
     public MatchDetails findById(long id) {
-        try {
+//        try {
             Optional<MatchDetails> optionalMatchDetails = this.matchDetailsRepo.findById(id);
             return optionalMatchDetails.get();
-        }catch (NoSuchElementException e)
-        {
-            return null;
-        }
+//        }catch (NoSuchElementException e)
+//        {
+//            return null;
+//        }
     }
 
     @Override

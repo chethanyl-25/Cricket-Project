@@ -1,10 +1,7 @@
 package com.cric.scorer.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "match")
 public class Team {
     @Id
     @SequenceGenerator(name = "team_seq",sequenceName = "team_seq",initialValue = 1,allocationSize = 1)

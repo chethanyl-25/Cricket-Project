@@ -2,6 +2,7 @@ package com.cric.scorer.PersonaServices;
 
 
 import com.cric.scorer.DTOs.input.Match;
+import com.cric.scorer.DTOs.input.UpdateMatch;
 import com.cric.scorer.DTOs.output.MatchCreated;
 import com.cric.scorer.entity.Player;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,7 @@ public interface OrganizerService {
     public Player updatePlayer(Player player);
     public boolean deletePlayer(long id);
     public boolean deleteMatch(long id);
+    public boolean addSquad(long matchId,String teamName,List<Player> playerList);
+    public void updateMatch(UpdateMatch updateMatch);
 
 }
