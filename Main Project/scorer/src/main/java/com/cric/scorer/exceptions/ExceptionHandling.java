@@ -27,6 +27,6 @@ public class ExceptionHandling {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> httpMessageNotReadableException(HttpMessageNotReadableException httpMessageNotReadableException)
     {
-        return new ResponseEntity<>("Please send correct JSON object",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Please send correct JSON_object/URL",HttpStatus.BAD_REQUEST);
     }
 }

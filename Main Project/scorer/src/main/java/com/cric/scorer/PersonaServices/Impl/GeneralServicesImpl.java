@@ -11,6 +11,7 @@ import com.cric.scorer.entity.MatchDetails;
 import com.cric.scorer.entity.Player;
 import com.cric.scorer.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -81,8 +82,10 @@ public class GeneralServicesImpl implements GeneralServices {
         Team team=this.teamRepo.findById(teamId).get();
         if(role.equalsIgnoreCase("C"))
             player=team.getCaptainId();
-        if(role.equalsIgnoreCase("Wk"))
+        else if(role.equalsIgnoreCase("Wk"))
             player=team.getWicketKeeperId();
+        else
+            throw new HttpMessageNotReadableException("Bad Url");
         return player;
     }
 }
