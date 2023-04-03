@@ -26,11 +26,11 @@ public class Team {
     @JoinColumn(name="wicket_keeper_id",referencedColumnName = "playerId")
     private Player wicketKeeperId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "match_id",referencedColumnName = "matchId")
     private MatchDetails match;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team",cascade = CascadeType.REMOVE)
     private List<TeamSquad> teamSquadList;
 
     @Override

@@ -16,10 +16,10 @@ public class MatchDetails {
     @SequenceGenerator(name = "match_seq",sequenceName = "match_seq",initialValue = 1,allocationSize = 1)
     @GeneratedValue(generator = "match_seq",strategy = GenerationType.SEQUENCE)
     private long matchId;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "team_A",referencedColumnName = "teamId",nullable = true)
     private Team teamA;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "team_B",referencedColumnName = "teamId",nullable = true)
     private Team teamB;
     private int overs;

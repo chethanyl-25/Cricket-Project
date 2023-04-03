@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class TeamSquad {
 
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "team_id",referencedColumnName = "teamID")
     private Team team;
 

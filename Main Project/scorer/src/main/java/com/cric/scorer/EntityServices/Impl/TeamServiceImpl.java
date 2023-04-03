@@ -27,4 +27,9 @@ public class TeamServiceImpl implements TeamService {
         Optional<Team> teamOptional= this.teamRepo.findById(id);
         return teamOptional.get();
     }
+
+    @Override
+    public void deleteById(long teamId) {
+        this.teamRepo.deleteById(teamId);
+    }
 }

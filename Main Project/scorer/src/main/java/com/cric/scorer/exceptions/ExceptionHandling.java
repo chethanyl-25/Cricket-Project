@@ -1,6 +1,7 @@
 package com.cric.scorer.exceptions;
 
 import org.springframework.aop.AopInvocationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -28,5 +29,9 @@ public class ExceptionHandling {
     public ResponseEntity<Object> httpMessageNotReadableException(HttpMessageNotReadableException httpMessageNotReadableException)
     {
         return new ResponseEntity<>("Please send correct JSON_object/URL",HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> dataIntegrityViolationException(DataIntegrityViolationException dataIntegrityViolationException){
+        return  new ResponseEntity<>("Duplicate Primary Key",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

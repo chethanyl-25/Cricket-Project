@@ -1,0 +1,768 @@
+openapi: 3.0.0
+info:
+  title: CricketScorrer_APIs
+  version: 1.0.0
+  description: Some APIs related to CricketScorrer project
+  contact:
+    email: chethanyl25@gmail.com
+    name: Chethan Y L
+servers:
+  - url: http://localhost:8080
+tags: 
+  - name: Organizer
+    description: Organizer fills basic details of match
+  - name: general
+    description:  some general apis userd by many personas
+  - name: Viewer
+    description: this for viewer persona 
+  - name: Scorer
+    description: These apis are used by Scorer
+paths:
+  /organizer:
+    description: home page for organizer
+    get:
+      tags:
+        - Organizer
+      summary: To display home page of organizer
+      description: giving options to organizer to create , update , delete match details
+      operationId: Organizer Home page
+      responses:
+        '200':
+          description: Show the home page
+        '500':
+          description: Internal server Error
+    post:
+      tags:
+        - Organizer
+      summary: to create new match
+      description: getting team details and overs and inserting the same in database
+      operationId: add new match
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamA:
+                  type: string
+                  example: India
+                teamB:
+                  type: string
+                  example: Australia
+                overs:
+                  type: number
+                  example: 10
+      responses:
+        '201':
+          description: Match created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  matchId:
+                    type: integer
+                    example: 100
+                  teamA:
+                    type: string
+                    example: India
+                  teamB:
+                    type: string
+                    example: Australia
+        '500':
+          description: Internal sever error
+    put:
+      tags: 
+        - Organizer 
+      description: Update the existing match by taking matchId
+      summary: To update an existing match
+      requestBody:
+        description: Send matchId whose details has to be updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                matchId: 
+                  type: integer
+                  example:  30
+                teamA:
+                  type: string
+                  example: India
+                teamB:
+                  type: string
+                  example: Australia
+                overs:
+                  type: integer
+                  example: 20
+      responses:
+        200:
+          description: Details updated successfully
+        500:
+          description: Some internal server error
+        404:
+          description: matchId not found
+  /organizer/{matchId}:
+    delete:
+      tags: 
+        - Organizer
+      summary: To delete a match
+      description: To completly delete all the details of match in database including teams and squad
+      parameters: 
+        - in: path
+          name: matchId
+          required: true
+          schema:
+            type: integer
+            example: 30
+      responses:
+        200:
+          description: Match deleted successfully
+        500:
+          description: Some Internal server error
+      
+  /organizer/getPlayersDetails/{playerName}:
+    get:
+      tags:
+        - Organizer
+      summary: To get list of players whose name like playerName
+      description: get players details with name starting
+      parameters:
+        - in: path
+          name: playerName
+          required: true
+          description: To search Virat Kohli pass path variable as Vir or any such values
+          schema:
+            type: string
+            example: vir
+      responses:
+        200:
+          description: Sends back the list of players name starting with playerName
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/player'
+        404:
+          description: No such player found
+  /organizer/{matchId}/squad/{Team}:
+    put:
+      tags: 
+        - Organizer
+      summary: updating the squad list for Team
+      description: updating players list  of 15(or less but >11) as squad for particular match
+      parameters: 
+        - in: path
+          name: matchId
+          required: true
+          description: Updating the details of a particular match
+          schema:
+            type: integer
+            example: 10
+        - in: path
+          name: Team
+          required: true
+          description: to update the squad details of the given match and team
+          schema:
+            type: string
+            example: India
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/player'
+      responses:
+        200:
+          description: Match details Updated Successfully
+        400:
+          description: url pattern not satisfied or some of the values are missing in url
+  /organizer/addPlayer:
+    post:
+      tags: 
+        - Organizer
+      summary: To add new player
+      description: Inserting new entry to player table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/player'
+      responses:
+        201:
+          description: new Player added to database successfully
+        500:
+          description: Some internal server error
+  /getMatchDetails/{matchId}:
+    get:
+      tags:
+        - general
+      summary: To fetch details of match with id=matchId
+      description: The over all details of match is sent
+      parameters: 
+        - in: path
+          name: matchId
+          required: true
+          description: Id of match whose details has to be fetched
+          schema:
+            type: integer
+            example: 30
+      responses:
+        200:
+          description: Found and returning the match details 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/match'
+        404:
+          description: No such matchId found in database
+  /getSquad/{matchId}/squad/{Team}:
+    get:
+      tags: 
+        - general 
+      summary: To get the squad of a team
+      description:  the array of players are returned who are registered as squad
+      parameters: 
+        - in: path
+          name: matchId
+          required: true
+          description: id of match whose details has to be returned
+          schema:
+            type: integer
+            example: 30
+        - in: path
+          name: Team
+          required: true
+          description: name of team whose squad has to be fetched
+          schema:
+            type: string
+            example: India
+      responses:
+        200:
+          description: Squad details are fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/player'
+  /getPlaying11/{matchId}/{Team}:
+    get:
+      tags: 
+        - general
+      summary: To fetch playing11 of a team
+      description: Array of players is returned who are currently playing for the team
+      parameters: 
+        - in: path
+          name: matchId
+          required: true
+          description: Id of match which has to be assced
+          schema:
+            type: integer
+            example: 30
+        - in: path
+          name: Team
+          required: true
+          description: name of the team whose playing11 has to be fetched
+          schema:
+            type: string
+            example: India
+      responses:
+        200:
+          description: playing11 fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/player'
+        500:
+          description: Some internal error
+        404:
+          description: matchId or Team name is not valid
+        
+  /getTeamInfo/{matchId}/{Team}:
+    get:
+      tags: 
+        - general
+      description: To get detailed info of a team
+      summary: stored data of team is returned
+      parameters: 
+        - name: matchId
+          in: path
+          description: MatchId
+          required: true
+          schema:
+            type: integer
+            example: 30
+        - name: Team
+          in: path
+          description: TeamName
+          required: true
+          schema:
+            type: string
+            example: India
+      responses:
+        200:
+          description: Fetched Team info successfully
+          content:
+            applcation/json:
+              schema:
+                type: object
+  /viewer/{status}:
+    get:
+      tags: 
+        - Viewer
+      description: To get the live match or completed match details
+      summary: Sending the match details according to status
+      parameters: 
+        - in: path
+          name: status
+          required: true
+          schema:
+            type: string
+            example: live
+      responses:
+        200:
+          description: Sending the match details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/match'
+  /viewer/live/summary/{matchId}:
+    get:
+      tags:
+        - Viewer
+      summary: To get the summary of the live match
+      description: Returns the summary of live match
+      parameters: 
+        - in: path
+          name: matchId
+          description: Id of match whose summary has to be returned
+          required: true
+          schema:
+            type: integer
+            example: 30
+      responses:
+        200:
+          description: Successfully match summary has been fetched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/liveMatchSummary'
+        404:
+          description: Not found
+  /viewer/scorecard/{matchId}/{team}:
+    get:
+      tags: 
+        - Viewer
+      description: can be used to fetch total scorecard of a team 
+      summary: to fetch scorecard of whole team
+      parameters: 
+        - in: path
+          name: matchId
+          required: true
+          description: Specify the matchId whose scorecard has to be calculated
+          schema:
+            type: integer
+            example: 20
+        - in: path
+          name: team
+          required: true
+          description: Name of the team whose scorecard has to be fetched
+          schema:
+            type: string
+            example: India
+      responses:
+        200:
+          description: Scorecard fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  score:
+                    type: integer
+                    example: 240
+                  wickets:
+                    type: integer
+                    example: 4
+                  extras:
+                    type: integer
+                    example: 11
+                  batsman:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/batsmanScore'
+                  bowler:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/bowler'
+  /get/{matchId}/{Team}/{role}:
+    get:
+      tags: 
+        - general
+      description: To fetch captain or wicketKeeper
+      summary: this fetches player details based on their roles
+      parameters: 
+        - name: matchId
+          in: path
+          description: matchId
+          required: true
+          schema:
+            type: integer
+            example: 30
+        - name: Team
+          in: path
+          description: teamName
+          required: true
+          schema:
+            type: string
+            example: India
+        - name: role
+          in: path
+          required: true
+          schema:
+            type: string
+            example: C
+            enum: 
+              - C
+              - Wk
+      responses:
+        200:
+          description: details fetched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/player'
+        404:
+          description: Details Not found
+          
+  /scorer/selectPlaying11/{matchId}/{Team}:
+    put:
+      tags: 
+        - Scorer
+      description: To select playing11 from given squad
+      summary: this updates the playing11 for a team
+      parameters: 
+        - name: matchId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 30
+          description: MatchId where playing 11 has to be updated
+        - name: Team
+          in: path
+          required: true
+          schema:
+            type: string
+            example: India
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/player'
+      responses:
+        200:
+          description: Playing11 updated Successfully
+        404:
+          description: No such element found
+  /scorer/setCAndWK/{matchId}/{Team}:
+    put:
+      tags: 
+        - Scorer
+      description: This updates team table by filling captain and wicketkeeper
+      summary: Adds captain and WicketKeeper to Team
+      parameters: 
+        - name: matchId
+          in: path
+          required: true
+          description: matchId of match
+          schema:
+            type: integer
+            example: 30
+        - name: Team
+          in: path
+          required: true
+          description: Name of the team
+          schema:
+            type: string
+            example: India
+      requestBody:
+        description: Only two player need to be there. | 1st player-captain. | 2nd Player-WicketKeeper
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/player'
+      responses:
+        200:
+          description: Captain and WicketKeeper updated successfully
+        404:
+          description: No data found with given info
+          
+  /scorer/toss/{matchId}:
+    put:
+      tags: 
+        - Scorer
+      summary: Update toss of give matchId
+      description: Update toss , toss selection and umpires of given matchId
+      parameters: 
+        - name: matchId
+          in: path
+          required: true
+          description: give the matchId of which toss has to be updated
+          schema:
+            type: integer
+            example: 30
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/toss'
+      responses:
+        200:
+          description: toss details and umpires for given matchId has been updated
+        404:
+          description: Some of the given details are incorrect
+components:
+  schemas:
+    toss:
+      type: object
+      properties:
+        tossWon:
+          type: string
+          example: India
+        tossSelection:
+          type: string
+          example: bat
+          enum: 
+            - bat
+            - field
+        umpires:
+          type: string
+          example: Ravi Shastri, Davidson
+    player:
+      type: object
+      properties:
+        playerId:
+          type: integer
+          example: 20
+        name:
+          type: string
+          example: Virat Kohli
+        nationality:
+          type: string
+          example: Indian
+        role:
+          type: string
+          example: Batsman
+          enum:
+            - Batsman
+            - Bowler
+            - All Rounder
+            - Wicket keeper
+        battingStyle:
+          type: string
+          example: Right hand
+          enum:
+            - Right Hnad
+            - Left Hand
+        bowlingStyle:
+          type: string
+          example: Right off spin
+    match:
+      type: object
+      properties:
+        matchId:
+          type: integer
+          example: 30
+        teamA:
+          type: string
+          example: India
+        teamB:
+          type: string
+          example: Australia
+        overs:
+          type: integer
+          example: 50
+        tossWon:
+          type: string
+          example: India
+        choose:
+          type: string
+          example: Bat
+          enum: 
+            - Bat
+            - Field
+        umpires:
+          type: string
+          example: Richardson , David
+        wonBy:
+          type: integer
+          example: 20
+        result:
+          type: string
+          example: India won by 17 runs
+        status:
+          type: string
+          example: Completed
+          enum:
+            - Not started
+            - live
+            - Completed
+    liveMatchSummary:
+      type: object
+      properties:
+        teamA:
+          type: string
+          example: India
+        teamB:
+          type: string
+          example: Australia
+        teamAScore:
+          type: integer
+          example: 300
+        teamAWickets:
+          type: integer
+          example: 2
+        teamAOvers:
+          type: number
+          example: 12.3
+        teamBScore:
+          type: integer
+          example: 0
+        teamBWickets:
+          type: integer
+          example: 0
+        teamBOvers:
+          type: number
+          example: 0.0
+        striker:
+          $ref: '#/components/schemas/batsman'
+        nonStriker:
+          $ref: '#/components/schemas/batsman'
+        bowlwer:
+          $ref: '#/components/schemas/bowler'
+    batsmanScore:
+      type: object
+      properties:
+        position:
+          type: integer
+          example: 1
+        score:
+          $ref: '#/components/schemas/batsman'
+        isWicket:
+          type: boolean
+          example: true
+        wicketTakenBy:
+          type: string
+          example: Michel Starc
+        wicketType:
+          type: string
+          example: caught
+        support:
+          type: string
+          example: Steve Smith
+    batsman:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 30
+        name:
+          type: string
+          example: Virat Kohli
+        runs:
+          type: integer
+          example: 20
+        balls:
+          type: integer
+          example: 15
+        ones:
+          type: integer
+          example: 10
+        twos:
+          type: integer
+          example: 2
+        threes:
+          type: integer
+          example: 3
+        fours:
+          type: integer
+          example: 1
+        sixs:
+          type: integer
+          example: 0
+        strikeRate:
+          type: number
+          example: 104.45
+    bowler:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 30
+        name:
+          type: string
+          example: Michel Starc
+        balls:
+          type: integer
+          example: 20
+        madien:
+          type: integer
+          example: 0
+        runs:
+          type: integer
+          example: 20
+        wickets:
+          type: integer
+          example: 0
+        economy:
+          type: number
+          example: 9.8
+    ballDetails:
+      type: object
+      properties:
+        ballNo:
+          type: integer
+          example: 3
+        event:
+          type: string
+          example: 3 runs
+        over:
+          type: number
+          example: 12.3
+        commentry:
+          type: string
+          example: 
+    Team:
+      type: object
+      properties:
+        teamId:
+          type: integer
+          example: 30
+        teamName:
+          type: string
+          example: India
+        captainId:
+          $ref: '#/components/schemas/player'
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

@@ -1,5 +1,6 @@
 package com.cric.scorer.PersonaServices.Impl;
 
+import com.cric.scorer.DTOs.input.Toss;
 import com.cric.scorer.PersonaServices.GeneralServices;
 import com.cric.scorer.PersonaServices.ScorerService;
 import com.cric.scorer.Repository.MatchDetailsRepo;
@@ -40,7 +41,6 @@ public class ScorerServiceImpl implements ScorerService {
             this.teamSquadRepo.save(teamSquad);
         }
     }
-
     @Override
     public void setCaptaionAndWicketKeeper(long matchId, String teamName, List<Player> playerList) {
         long teamId=this.teamRepo.findByTeamNameAndMatch(teamName,matchId);
@@ -50,5 +50,15 @@ public class ScorerServiceImpl implements ScorerService {
         team.setCaptainId(captain);
         team.setWicketKeeperId(wicketKeeper);
         this.teamRepo.save(team);
+    }
+    @Override
+    public void updateTossAndUmpire(long matchId, Toss toss) {
+        long teamId=this.teamRepo.findByTeamNameAndMatch(toss.getTossWon(),matchId);
+        Team team=this.teamRepo.findById(teamId).get();
+        MatchDetails matchDetails=this.matchDetailsRepo.findById(matchId).get();
+        matchDetails.setTossWon(team);
+        matchDetails.setTossSelection(toss.getTossSelection());
+        matchDetails.setUmpires(toss.getUmpires());
+        this.matchDetailsRepo.save(matchDetails);
     }
 }

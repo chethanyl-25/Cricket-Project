@@ -12,6 +12,7 @@ import com.cric.scorer.entity.MatchDetails;
 import com.cric.scorer.entity.Player;
 import com.cric.scorer.entity.Team;
 import com.cric.scorer.entity.TeamSquad;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,7 +90,7 @@ public class OrganizerServiceImpl implements OrganizerService {
         else
             return false;
     }
-
+    @Transactional
     @Override
     public boolean deleteMatch(long id) {
         return this.matchDetailsService.deleteById(id);
