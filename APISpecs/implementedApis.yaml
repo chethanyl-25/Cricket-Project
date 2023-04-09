@@ -283,125 +283,7 @@ paths:
         404:
           description: matchId or Team name is not valid
         
-  /getTeamInfo/{matchId}/{Team}:
-    get:
-      tags: 
-        - general
-      description: To get detailed info of a team
-      summary: stored data of team is returned
-      parameters: 
-        - name: matchId
-          in: path
-          description: MatchId
-          required: true
-          schema:
-            type: integer
-            example: 30
-        - name: Team
-          in: path
-          description: TeamName
-          required: true
-          schema:
-            type: string
-            example: India
-      responses:
-        200:
-          description: Fetched Team info successfully
-          content:
-            applcation/json:
-              schema:
-                type: object
-  /viewer/{status}:
-    get:
-      tags: 
-        - Viewer
-      description: To get the live match or completed match details
-      summary: Sending the match details according to status
-      parameters: 
-        - in: path
-          name: status
-          required: true
-          schema:
-            type: string
-            example: live
-      responses:
-        200:
-          description: Sending the match details
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/match'
-  /viewer/live/summary/{matchId}:
-    get:
-      tags:
-        - Viewer
-      summary: To get the summary of the live match
-      description: Returns the summary of live match
-      parameters: 
-        - in: path
-          name: matchId
-          description: Id of match whose summary has to be returned
-          required: true
-          schema:
-            type: integer
-            example: 30
-      responses:
-        200:
-          description: Successfully match summary has been fetched
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/liveMatchSummary'
-        404:
-          description: Not found
-  /viewer/scorecard/{matchId}/{team}:
-    get:
-      tags: 
-        - Viewer
-      description: can be used to fetch total scorecard of a team 
-      summary: to fetch scorecard of whole team
-      parameters: 
-        - in: path
-          name: matchId
-          required: true
-          description: Specify the matchId whose scorecard has to be calculated
-          schema:
-            type: integer
-            example: 20
-        - in: path
-          name: team
-          required: true
-          description: Name of the team whose scorecard has to be fetched
-          schema:
-            type: string
-            example: India
-      responses:
-        200:
-          description: Scorecard fetched successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  score:
-                    type: integer
-                    example: 240
-                  wickets:
-                    type: integer
-                    example: 4
-                  extras:
-                    type: integer
-                    example: 11
-                  batsman:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/batsmanScore'
-                  bowler:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/bowler'
+  
   /get/{matchId}/{Team}/{role}:
     get:
       tags: 
@@ -533,6 +415,91 @@ paths:
           description: toss details and umpires for given matchId has been updated
         404:
           description: Some of the given details are incorrect
+  /scorer/updateScore/{matchId}:
+    post:
+      tags: 
+        - Scorer
+      description: ball to ball  score updatition
+      summary: Score updatation
+      parameters: 
+        - name : matchId
+          in: path
+          description: updating the score of a particular matchId
+          schema:
+            type: integer
+            example: 9
+          required: true
+      requestBody:
+        content:
+          apllication/json:
+            schema:
+              $ref: '#/components/schemas/updateScore'
+      responses:
+        201: 
+          description: score updated for given ball Details
+        500: 
+          description: some internal Server error
+        404: 
+          description: some of the details cannot be found
+  /scorer/updateResult/{matchId}:
+    put:
+      tags: 
+        - Scorer
+      description: To update the match results
+      summary: Updating the match result
+      parameters: 
+        - name: matchId
+          in: path
+          description: machId
+          required: true
+          schema:
+            type: integer
+            example: 3
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateResult'
+      responses:
+        200:
+          description: match results updated successfully
+        500:
+          description: some Internal server error
+        404:
+          description: details cannot be found.
+          
+  /remainingPlayers/{matchId}/{TeamName}:
+    get:
+      tags: 
+        - general
+      summary: Gives the remaining players details
+      description: sending the details of the players whose wickets are still remaining
+      parameters: 
+        - name: matchId
+          in: path
+          description: matchId
+          required: true
+          schema:
+            type: integer
+            example: 3
+        - name: TeamName
+          in: path
+          description: Name of the Team
+          required: true
+          schema:
+            type: string
+            example: India
+      responses:
+        200:
+          description: remaining players fetched successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/player'
+        204:
+          description: if no players are remaining
 components:
   schemas:
     toss:
@@ -755,7 +722,86 @@ components:
           example: India
         captainId:
           $ref: '#/components/schemas/player'
+    updateScore:
+      type: object
+      properties:
+        battingTeamName:
+          type: string
+          example: India
+        bowlingTeamName:
+          type: string
+          example: Australia
+        bowlerId:
+          type: integer
+          example: 43
+        strikerId:
+          type: integer
+          example: 21
+        nonStrikerId:
+          type: integer
+          example: 33
+        event:
+          type: string
+          example: normal
+          enum: 
+           - normal 
+           - wide
+           - noBall
+           - wicket
+        overs:
+          type: integer
+          example: 11
+        ballNo :
+          type: integer
+          example: 4
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+        runs:
+           type : integer
+           example: 6
+        wicketTaken:
+          $ref: '#/components/schemas/wicketTaken'
+    wicketTaken:
+      type: object
+      properties:
+        wicketType:
+           type: string
+           example: bowled
+           enum:
+            - bowled
+            - runout
+            - caught
+            - stumped
+            - hitwicket
+        batsmanId:
+          type: integer
+          example: 7
+        takenBy:
+           type : integer
+           example: 8
+    updateResult:
+      type: object
+      properties:
+        teamWon:
+          type: string
+          example: India
+        manOfTheMatch:
+          type: integer
+          example: 12
+        result:
+          type: string
+          example: India won by 3 wickets
+          
         
+            
+          
+          
+          
         
         
         
