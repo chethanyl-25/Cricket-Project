@@ -5,7 +5,6 @@ import com.cric.scorer.DTOs.input.Match;
 import com.cric.scorer.DTOs.input.UpdateMatch;
 import com.cric.scorer.DTOs.output.MatchCreated;
 import com.cric.scorer.entity.Player;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -17,6 +17,9 @@ public class ScoreDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Score_details_seq")
     private long ballId;
     @ManyToOne
+    @JoinColumn(name = "match_id",referencedColumnName = "matchId")
+    private MatchDetails match;
+    @ManyToOne
     @JoinColumn(name="bowling_team_id",referencedColumnName = "teamId")
     private Team bowlingTeam;
     @ManyToOne
@@ -33,7 +36,8 @@ public class ScoreDetails {
     private Player nonStriker;
     private int runs;
     private String event;
-    private float overs;
+    private int overs;
+    private int ballNo;
     @OneToOne
     @JoinColumn(name = "wicket_id",referencedColumnName = "wicketId")
     private Wicket wicket;

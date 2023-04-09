@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -42,10 +41,21 @@ public class GeneralController {
         return ResponseEntity.ok(playing11);
     }
     @GetMapping("/get/{matchId}/{Team}/{role}")
-    public ResponseEntity<Player> getPlayerByRole(@PathVariable("matchId") long matchId,@PathVariable("Team") String teamName,
+    public ResponseEntity<Player> getPlayerByRole(@PathVariable("matchId") long matchId, @PathVariable("Team") String teamName,
                                                   @PathVariable("role")String role)
     {
-        Player player=this.generalServices.getPlayerBasedOnRole(matchId,teamName,role);
+        Player player =this.generalServices.getPlayerBasedOnRole(matchId,teamName,role);
         return ResponseEntity.ok(player);
+    }
+    @GetMapping("/remainingPlayers/{matchId}/{TeamName}")
+    public ResponseEntity<List<Player>> getRemainingPlayers(@PathVariable("matchId")long matchId,
+                                                      @PathVariable("TeamName")String teamName)
+    {
+        List<Player> remainingPlayers=this.generalServices.getRemainingPlayers(matchId,teamName);
+        if (remainingPlayers.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        else
+            return ResponseEntity.ok(remainingPlayers);
+
     }
 }

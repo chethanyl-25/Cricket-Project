@@ -9,4 +9,6 @@ public interface TeamService {
     public Team findById(long id);
 
     void deleteById(long teamId);
+
+    long findByTeamNameAndMatch(String teamName, long matchId);
 }

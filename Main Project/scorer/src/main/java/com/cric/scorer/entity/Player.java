@@ -3,14 +3,11 @@ package com.cric.scorer.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = "teamSquadList")
 public class Player {
     @Id
     @SequenceGenerator(name = "player_seq",sequenceName = "player_seq",allocationSize = 1)
@@ -33,6 +30,8 @@ public class Player {
                 ", bowlingStyle='" + bowlingStyle + '\'' +
                 '}';
     }
+
+
     //    @OneToMany(mappedBy = "player",fetch = FetchType.LAZY)
 //    private List<TeamSquad> teamSquadList;
 }

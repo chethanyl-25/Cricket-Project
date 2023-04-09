@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface GeneralServices {
     public MatchInfo getMatchDetails(long id);
-    public List<Player> getSquad(long matchId,String teamName);
-    public List<Player> getPlayin11(long matchId,String teamName);
-    public Player getPlayerBasedOnRole(long matchId,String teamName,String role);
+    public List<Player> getSquad(long matchId, String teamName);
+    public List<Player> getPlayin11(long matchId, String teamName);
+    public Player getPlayerBasedOnRole(long matchId, String teamName, String role);
+
+    List<Player> getRemainingPlayers(long matchId, String teamName);
 }

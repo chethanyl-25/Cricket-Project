@@ -35,7 +35,7 @@ public class OrganizerServiceImpl implements OrganizerService {
 
     @Override
     public List<Player> findByNameContaining(String name) {
-        List<Player> playerList=this.playerService.findByNameContaining(name);
+        List<Player> playerList =this.playerService.findByNameContaining(name);
         System.out.println();
         if(playerList.size()>0)
             return playerList;
@@ -57,6 +57,7 @@ public class OrganizerServiceImpl implements OrganizerService {
                 .teamA(teamA)
                 .teamB(teamB)
                 .overs(match.getOvers())
+                .status("upcoming")
                 .build();
         matchDetails=this.matchDetailsService.save(matchDetails);
         teamA.setMatch(matchDetails);
@@ -82,8 +83,8 @@ public class OrganizerServiceImpl implements OrganizerService {
 
     @Override
     public boolean deletePlayer(long id) {
-        Player player=this.playerService.findById(id);
-        if(player!=null){
+        Player player =this.playerService.findById(id);
+        if(player !=null){
             this.playerService.deleteById(id);
             return true;
         }
@@ -100,7 +101,7 @@ public class OrganizerServiceImpl implements OrganizerService {
     public boolean addSquad(long matchid,String teamName, List<Player> playerList) {
         long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchid);
         Team team=this.teamService.findById(teamId);
-        for(Player player:playerList)
+        for(Player player : playerList)
         {
             TeamSquad teamSquad=new TeamSquad();
             teamSquad.setPlayer(player);

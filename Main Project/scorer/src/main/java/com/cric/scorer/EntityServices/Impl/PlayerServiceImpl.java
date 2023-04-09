@@ -1,7 +1,6 @@
 package com.cric.scorer.EntityServices.Impl;
 
 import com.cric.scorer.Repository.PlayerRepo;
-import com.cric.scorer.EntityServices.PlayerService;
 import com.cric.scorer.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PlayerServiceImpl implements PlayerService {
+public class PlayerServiceImpl implements com.cric.scorer.EntityServices.PlayerService {
     @Autowired
     private PlayerRepo playerRepo;
 

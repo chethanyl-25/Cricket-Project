@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 public class OrganizerController {
@@ -25,14 +24,14 @@ public class OrganizerController {
     //This method is used to save a player tuple to player entity
     @RequestMapping(value = "/organizer/addPlayer", method = RequestMethod.POST)
     public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
-        Player player1= this.organizerService.savePlayer(player);
+        Player player1 = this.organizerService.savePlayer(player);
         return ResponseEntity.ok(player1);
     }
     //This method is used to fetch details whose player.name contains 'playerName'
     @GetMapping(value = "/organizer/getPlayersDetails/{playerName}")
     public ResponseEntity<List<Player>> getPlayersDetails(@PathVariable(name = "playerName") String name) {
-        List<Player> playerList=this.organizerService.findByNameContaining(name);
-        if(playerList==null)
+        List<Player> playerList =this.organizerService.findByNameContaining(name);
+        if(playerList ==null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else
             return ResponseEntity.ok(playerList);
@@ -51,8 +50,8 @@ public class OrganizerController {
     //If player found then it just updates the tuple in player entity
     @PutMapping(value = "/organizer/updatePlayer")
     public ResponseEntity<Player> updatePlayer(@RequestBody Player player){
-        Player player1=this.organizerService.updatePlayer(player);
-        if(player1!=null)
+        Player player1 =this.organizerService.updatePlayer(player);
+        if(player1 !=null)
             return ResponseEntity.ok(player1);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -79,7 +78,7 @@ public class OrganizerController {
     public ResponseEntity<Object> addTeamSquad(@PathVariable("matchId")long matchId,
                                                 @PathVariable("Team")String teamName,
                                                 @RequestBody List<Player> playerList){
-        if(this.organizerService.addSquad(matchId,teamName,playerList))
+        if(this.organizerService.addSquad(matchId,teamName, playerList))
         return new ResponseEntity<>("Players added Successfully",HttpStatus.OK);
         else
             return new ResponseEntity<>("Some Internal Server Error",HttpStatus.INTERNAL_SERVER_ERROR);

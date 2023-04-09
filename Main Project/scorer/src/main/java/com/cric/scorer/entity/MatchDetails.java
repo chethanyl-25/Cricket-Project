@@ -24,11 +24,11 @@ public class MatchDetails {
     private Team teamB;
     private int overs;
     private String umpires;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "toss_won",referencedColumnName = "teamId")
     private Team tossWon;
     private String tossSelection;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.REMOVE)
     @JoinColumn(name = "won_by",referencedColumnName = "teamId")
     private Team wonBy;
     private String result;
@@ -38,20 +38,4 @@ public class MatchDetails {
     @Column(columnDefinition = "varchar(20) default 'upcoming'")
     private String status;
 
-    @Override
-    public String toString() {
-        return "MatchDetails{" +
-                "matchId=" + matchId +
-                ", teamA=" + teamA +
-                ", teamB=" + teamB +
-                ", overs=" + overs +
-                ", umpires='" + umpires + '\'' +
-                ", tossWon=" + tossWon +
-                ", tossSelection='" + tossSelection + '\'' +
-                ", wonBy=" + wonBy +
-                ", result='" + result + '\'' +
-                ", manOfTheMatch=" + manOfTheMatch +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }
