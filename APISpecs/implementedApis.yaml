@@ -218,7 +218,7 @@ paths:
                 $ref: '#/components/schemas/match'
         404:
           description: No such matchId found in database
-  /getSquad/{matchId}/squad/{Team}:
+  /getSquad/{matchId}/{Team}:
     get:
       tags: 
         - general 
@@ -500,6 +500,35 @@ paths:
                   $ref: '#/components/schemas/player'
         204:
           description: if no players are remaining
+  /viewer/getScoreSummary/{matchId}/{teamName}:
+    get:
+      tags: 
+        - Viewer
+      summary: displays the score summary
+      description: this summary of total score of given team
+      parameters: 
+        - name: matchId
+          in: path
+          required: true
+          description: Id of that particular match
+          schema:
+            type: integer
+            example: 3
+        - name: teamName
+          in: path
+          description: Name of the team
+          required: true
+          schema:
+            type: string
+            example: India
+      responses:
+        200:
+          description: Successfully fetched the data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scoreSummary'
+      
 components:
   schemas:
     toss:
@@ -755,12 +784,12 @@ components:
           type: integer
           example: 4
           enum:
+            - 0
             - 1
             - 2
             - 3
             - 4
             - 5
-            - 6
         runs:
            type : integer
            example: 6
@@ -796,6 +825,30 @@ components:
         result:
           type: string
           example: India won by 3 wickets
+    scoreSummary:
+      type: object
+      properties:
+        teamName:
+          type: string
+          example: India
+        totalRuns:
+          type: integer
+          example: 30
+        totalWickets:
+          type: integer
+          example: 4
+        extras:
+          type: integer
+          example: 5
+        currentOver: 
+          type: integer
+          example: 5
+        currentBallNo:
+          type: integer
+          example: 5
+        currentRunRate:
+          type: number
+          example: 8.36
           
         
             

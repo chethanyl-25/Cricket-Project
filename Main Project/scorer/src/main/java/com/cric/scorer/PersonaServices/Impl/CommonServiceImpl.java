@@ -2,9 +2,7 @@ package com.cric.scorer.PersonaServices.Impl;
 
 import com.cric.scorer.DTOs.output.MatchInfo;
 import com.cric.scorer.EntityServices.*;
-import com.cric.scorer.PersonaServices.GeneralServices;
-import com.cric.scorer.Repository.TeamRepo;
-import com.cric.scorer.Repository.TeamSquadRepo;
+import com.cric.scorer.PersonaServices.CommonService;
 import com.cric.scorer.entity.MatchDetails;
 import com.cric.scorer.entity.Player;
 import com.cric.scorer.entity.Team;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GeneralServicesImpl implements GeneralServices {
+public class CommonServiceImpl implements CommonService {
     @Autowired
     private MatchDetailsService matchDetailsService;
     @Autowired
@@ -45,6 +43,9 @@ public class GeneralServicesImpl implements GeneralServices {
         if(matchDetails.getWonBy()!=null)
             matchInfo.setWonBy(matchDetails.getWonBy().getTeamName());
         matchInfo.setStatus(matchDetails.getStatus());
+        matchInfo.setUmpires(matchDetails.getUmpires());
+        matchInfo.setTossSelection(matchDetails.getTossSelection());
+        matchInfo.setResult(matchDetails.getResult());
         return matchInfo;
     }
 

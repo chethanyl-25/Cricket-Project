@@ -14,4 +14,25 @@ public class ScoreDetailsServiceImpl implements ScoreDetailsService {
     public ScoreDetails save(ScoreDetails scoreDetails) {
         return this.scoreDetailsRepo.save(scoreDetails);
     }
+    @Override
+    public int getTotalRunsScoredByTeam(long matchId, long teamId) {
+        return this.scoreDetailsRepo.getTotalRunsScoredByTeam(matchId,teamId);
+    }
+    @Override
+    public int getTotalWicketsOfTeam(long matchId, long teamId) {
+        return this.scoreDetailsRepo.getTotalWicketsOfTeam(matchId,teamId);
+    }
+    @Override
+    public int getExtrasOfTeam(long matchId, long teamId) {
+        return this.scoreDetailsRepo.getExtrasOfTeam(matchId,teamId);
+    }
+    @Override
+    public int getCurrentOver(long matchId, long teamId) {
+        return this.scoreDetailsRepo.getCurrentOver(matchId,teamId);
+    }
+
+    @Override
+    public int getCurrentBallNo(long matchId, long teamId, int currentOver) {
+        return this.scoreDetailsRepo.getCurrentBallNo(matchId,teamId,currentOver);
+    }
 }

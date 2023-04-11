@@ -5,11 +5,8 @@ import com.cric.scorer.DTOs.input.UpdateResult;
 import com.cric.scorer.DTOs.input.UpdateScore;
 import com.cric.scorer.DTOs.input.WicketTaken;
 import com.cric.scorer.EntityServices.*;
-import com.cric.scorer.PersonaServices.GeneralServices;
+import com.cric.scorer.PersonaServices.CommonService;
 import com.cric.scorer.PersonaServices.ScorerService;
-import com.cric.scorer.Repository.MatchDetailsRepo;
-import com.cric.scorer.Repository.TeamRepo;
-import com.cric.scorer.Repository.TeamSquadRepo;
 import com.cric.scorer.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +24,7 @@ public class ScorerServiceImpl implements ScorerService {
     @Autowired
     private TeamSquadService teamSquadService;
     @Autowired
-    private GeneralServices generalServices;
+    private CommonService commonService;
     @Autowired
     private ScoreDetailsService scoreDetailsService;
     @Autowired

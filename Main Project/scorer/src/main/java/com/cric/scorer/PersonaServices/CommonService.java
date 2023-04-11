@@ -5,7 +5,7 @@ import com.cric.scorer.entity.Player;
 
 import java.util.List;
 
-public interface GeneralServices {
+public interface CommonService {
     public MatchInfo getMatchDetails(long id);
     public List<Player> getSquad(long matchId, String teamName);
     public List<Player> getPlayin11(long matchId, String teamName);

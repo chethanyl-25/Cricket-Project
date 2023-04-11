@@ -3,21 +3,20 @@ package com.cric.scorer.Controllers;
 import com.cric.scorer.DTOs.input.Toss;
 import com.cric.scorer.DTOs.input.UpdateResult;
 import com.cric.scorer.DTOs.input.UpdateScore;
-import com.cric.scorer.PersonaServices.GeneralServices;
+import com.cric.scorer.PersonaServices.CommonService;
 import com.cric.scorer.PersonaServices.ScorerService;
 import com.cric.scorer.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class ScorerController {
     @Autowired
-    private GeneralServices generalServices;
+    private CommonService commonService;
     @Autowired
     private ScorerService scorerService;
 

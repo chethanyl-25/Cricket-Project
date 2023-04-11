@@ -3,7 +3,7 @@ package com.cric.scorer.Controllers;
 import com.cric.scorer.DTOs.input.Match;
 import com.cric.scorer.DTOs.input.UpdateMatch;
 import com.cric.scorer.DTOs.output.MatchCreated;
-import com.cric.scorer.PersonaServices.GeneralServices;
+import com.cric.scorer.PersonaServices.CommonService;
 import com.cric.scorer.PersonaServices.OrganizerService;
 import com.cric.scorer.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class OrganizerController {
     @Autowired
     private OrganizerService organizerService;
     @Autowired
-    private GeneralServices generalServices;
+    private CommonService commonService;
 
     //This method is used to save a player tuple to player entity
     @RequestMapping(value = "/organizer/addPlayer", method = RequestMethod.POST)

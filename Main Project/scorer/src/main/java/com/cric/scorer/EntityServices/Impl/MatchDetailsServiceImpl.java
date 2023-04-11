@@ -22,13 +22,8 @@ public class MatchDetailsServiceImpl implements com.cric.scorer.EntityServices.M
 
     @Override
     public MatchDetails findById(long id) {
-//        try {
             Optional<MatchDetails> optionalMatchDetails = this.matchDetailsService.findById(id);
             return optionalMatchDetails.get();
-//        }catch (NoSuchElementException e)
-//        {
-//            return null;
-//        }
     }
 
     @Override
