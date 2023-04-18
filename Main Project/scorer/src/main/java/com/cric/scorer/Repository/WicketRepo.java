@@ -13,7 +13,6 @@ public interface WicketRepo extends JpaRepository<Wicket, Long> {
     @Query(value = "SELECT wicket.batsman_id from wicket WHERE match_id= :matchId",nativeQuery = true)
     public List<Long> fallenBatsmen(@Param("matchId") long matchId);
 
-    @Query(value = "SELECT * from wicket WHERE wicket.match_id= :matchId AND wicket.batsman_id= :playerId"
-            ,nativeQuery = true)
-    Wicket findWicket(long matchId, long playerId);
+    @Query(value = "SELECT * FROM wicket WHERE wicket.match_id= :matchId and wicket.batsman_id= :playerId",nativeQuery = true)
+    public Wicket findWicketDetails(@Param("matchId") long matchId,@Param("playerId") long playerId);
 }

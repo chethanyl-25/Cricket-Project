@@ -16,6 +16,5 @@ public interface CommonService {
     List<Player> getRemainingPlayers(long matchId, String teamName);
     public BatsmanScore getIndividualBatsmanScore(long matchId,long teamId,long playerId);
     public List<BatsmanScore> getBattingStatsOfTeam(long matchId,String teamName);
-    public WicketDetails getWicketDetails(long matchId, long playerId);
-
+    public WicketDetails getWicketDetails(long matchId,long playerId);
 }

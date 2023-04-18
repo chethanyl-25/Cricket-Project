@@ -24,7 +24,8 @@ public class WicketServiceImpl implements WicketService {
     }
 
     @Override
-    public Wicket findWicket(long matchId, long playerId) {
-        return this.wicketRepo.findWicket(matchId,playerId);
+    public Wicket findWicketDetails(long matchId, long playerId) {
+        Wicket wicket=this.wicketRepo.findWicketDetails(matchId,playerId);
+        return wicket;
     }
 }

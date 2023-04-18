@@ -16,5 +16,5 @@ public class BatsmanScore {
     private int fours;
     private int sixes;
     private double strikeRate;
-    private  WicketDetails wicketDetails;
+    private WicketDetails wicketDetails;
 }

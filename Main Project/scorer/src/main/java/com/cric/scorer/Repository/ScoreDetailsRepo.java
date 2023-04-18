@@ -1,8 +1,6 @@
 package com.cric.scorer.Repository;
 
 import com.cric.scorer.DTOs.output.BallsPlayed;
-import com.cric.scorer.DTOs.output.BatsmanScore;
-import com.cric.scorer.DTOs.output.PreviousBallsByBatsmen;
 import com.cric.scorer.entity.ScoreDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

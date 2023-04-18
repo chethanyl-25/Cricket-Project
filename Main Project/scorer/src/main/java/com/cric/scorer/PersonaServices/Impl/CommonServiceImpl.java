@@ -121,8 +121,8 @@ public class CommonServiceImpl implements CommonService {
         for(Long playerId:playedBatsmenId)
         {
             BatsmanScore batsmanScore=this.getIndividualBatsmanScore(matchId,teamId,playerId);
+            batsmanScore.setWicketDetails(this.getWicketDetails(matchId,playerId));
             battingStats.add(batsmanScore);
-            this.getWicketDetails(matchId,playerId);
         }
         return battingStats;
     }
@@ -136,8 +136,14 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public WicketDetails getWicketDetails(long matchId, long playerId) {
-        Wicket wicket=this.wicketService.findWicket(matchId,playerId);
-        System.out.println(wicket);
-        return null;
+        Wicket wicket= this.wicketService.findWicketDetails(matchId,playerId);
+        if(wicket==null)
+            return null;
+        WicketDetails wicketDetails=new WicketDetails();
+        wicketDetails.setWicketType(wicket.getWicketType());
+        wicketDetails.setBowler(wicket.getBlower().getName());
+        if(wicket.getTakenBy()!=null)
+            wicketDetails.setTakenBy(wicket.getTakenBy().getName());
+        return wicketDetails;
     }
 }

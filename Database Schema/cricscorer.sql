@@ -1,48 +1,21 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Apr 18, 2023 at 07:37 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.14
-
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `cricscorer`
---
-
---
--- Dumping data for table `match_details`
---
 
 INSERT INTO `match_details` (`match_id`, `overs`, `result`, `status`, `toss_selection`, `umpires`, `man_of_the_match`, `team_a`, `team_b`, `toss_won`, `won_by`) VALUES
 (1, 3, 'India won by 34 runs', 'Completed', 'bat', 'Ravi Shastri, Davidson', 1, 1, 2, 1, 1),
-(2, 5, NULL, 'upcoming', NULL, NULL, NULL, 3, 4, NULL, NULL),
+(2, 5, 'India Won By  21 runs', 'Completed', 'bat', 'Ravi Shastri, Davidson', 2, 3, 4, 4, 4),
 (4, 20, NULL, 'upcoming', NULL, NULL, NULL, 7, 8, NULL, NULL);
-
---
--- Dumping data for table `match_seq`
---
 
 INSERT INTO `match_seq` (`next_val`) VALUES
 (1),
-(1),
 (5);
-
---
--- Dumping data for table `player`
---
 
 INSERT INTO `player` (`player_id`, `batting_style`, `bowling_style`, `name`, `nationality`, `role`) VALUES
 (1, 'Right Hand', NULL, 'K L RAHUL', 'Indian', 'Batsman'),
@@ -89,16 +62,9 @@ INSERT INTO `player` (`player_id`, `batting_style`, `bowling_style`, `name`, `na
 (42, 'Left hand', 'Left Arm Fast', 'Madhusudan', 'Sri Lanka', 'Bowler'),
 (43, 'Left hand', 'Left Arm Fast', 'Karunarathne', 'Sri Lanka', 'All rounder');
 
---
--- Dumping data for table `player_seq`
---
-
 INSERT INTO `player_seq` (`next_val`) VALUES
+(44),
 (44);
-
---
--- Dumping data for table `score_details`
---
 
 INSERT INTO `score_details` (`ball_id`, `ball_no`, `creation_time`, `event`, `overs`, `runs`, `batting_team_id`, `bowler_id`, `bowling_team_id`, `match_id`, `non_striker_id`, `striker_id`, `wicket_id`) VALUES
 (1, 1, '2023-04-13 12:23:21', 'normal', 0, 6, 1, 18, 2, 1, 7, 1, NULL),
@@ -172,25 +138,16 @@ INSERT INTO `score_details` (`ball_id`, `ball_no`, `creation_time`, `event`, `ov
 (70, 4, '2023-04-14 18:35:42', 'wicket', 1, 0, 3, 10, 4, 2, 32, 31, 8),
 (71, 5, '2023-04-14 18:36:10', 'wicket', 1, 0, 3, 10, 4, 2, 32, 33, 9),
 (72, 0, '2023-04-14 18:36:36', 'wicket', 2, 0, 3, 10, 4, 2, 32, 34, 10),
-(73, 1, '2023-04-14 18:37:53', 'normal', 2, 2, 3, 8, 4, 2, 34, 32, NULL),
-(74, 2, '2023-04-14 18:38:02', 'normal', 2, 2, 3, 8, 4, 2, 34, 32, NULL),
-(75, 3, '2023-04-14 18:38:13', 'normal', 2, 3, 3, 8, 4, 2, 34, 32, NULL),
-(76, 4, '2023-04-14 18:38:27', 'normal', 2, 2, 3, 8, 4, 2, 32, 34, NULL),
-(77, 5, '2023-04-14 18:38:43', 'wide', 2, 0, 3, 8, 4, 2, 32, 34, NULL),
-(78, 0, '2023-04-14 18:39:16', 'normal', 3, 0, 3, 8, 4, 2, 32, 34, NULL);
-
---
--- Dumping data for table `score_details_seq`
---
+(73, 1, '2023-04-14 18:37:53', 'normal', 2, 2, 3, 8, 4, 2, 35, 32, NULL),
+(74, 2, '2023-04-14 18:38:02', 'normal', 2, 2, 3, 8, 4, 2, 35, 32, NULL),
+(75, 3, '2023-04-14 18:38:13', 'normal', 2, 3, 3, 8, 4, 2, 35, 32, NULL),
+(76, 4, '2023-04-14 18:38:27', 'normal', 2, 2, 3, 8, 4, 2, 32, 35, NULL),
+(77, 5, '2023-04-14 18:38:43', 'wide', 2, 0, 3, 8, 4, 2, 32, 35, NULL),
+(78, 0, '2023-04-14 18:39:16', 'normal', 3, 0, 3, 8, 4, 2, 32, 35, NULL);
 
 INSERT INTO `score_details_seq` (`next_val`) VALUES
-(1),
 (79),
 (79);
-
---
--- Dumping data for table `team`
---
 
 INSERT INTO `team` (`team_id`, `team_name`, `captain_id`, `match_id`, `wicket_keeper_id`) VALUES
 (1, 'India', 2, 1, 1),
@@ -200,18 +157,9 @@ INSERT INTO `team` (`team_id`, `team_name`, `captain_id`, `match_id`, `wicket_ke
 (7, 'RCB', NULL, 4, NULL),
 (8, 'LSG', NULL, 4, NULL);
 
---
--- Dumping data for table `team_seq`
---
-
 INSERT INTO `team_seq` (`next_val`) VALUES
 (1),
-(1),
 (9);
-
---
--- Dumping data for table `team_squad`
---
 
 INSERT INTO `team_squad` (`player_id`, `team_id`, `is_playing`) VALUES
 (1, 1, 1),
@@ -274,10 +222,6 @@ INSERT INTO `team_squad` (`player_id`, `team_id`, `is_playing`) VALUES
 (42, 3, 0),
 (43, 3, 0);
 
---
--- Dumping data for table `wicket`
---
-
 INSERT INTO `wicket` (`wicket_id`, `wicket_type`, `batsman_id`, `bowler_id`, `match_id`, `taken_by`) VALUES
 (1, 'bowled', 7, 18, 1, NULL),
 (2, 'cought', 3, 18, 1, 16),
@@ -288,17 +232,11 @@ INSERT INTO `wicket` (`wicket_id`, `wicket_type`, `batsman_id`, `bowler_id`, `ma
 (7, 'bowled', 1, 38, 2, 38),
 (8, 'bowled', 31, 10, 2, 10),
 (9, 'bowled', 33, 10, 2, 10),
-(10, 'bowled', 33, 10, 2, 10);
-
---
--- Dumping data for table `wicket_seq`
---
+(10, 'bowled', 34, 10, 2, 10);
 
 INSERT INTO `wicket_seq` (`next_val`) VALUES
-(1),
 (11),
 (11);
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

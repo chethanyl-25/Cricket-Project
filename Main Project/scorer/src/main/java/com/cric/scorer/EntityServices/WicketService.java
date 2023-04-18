@@ -8,6 +8,5 @@ public interface WicketService {
     public Wicket save(Wicket wicket);
 
     List<Long> WicketsGone(long matchId);
-
-    Wicket findWicket(long matchId, long playerId);
+    Wicket findWicketDetails(long matchId,long playerId);
 }
