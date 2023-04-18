@@ -1,5 +1,6 @@
 package com.cric.scorer.Controllers;
 
+import com.cric.scorer.DTOs.output.BatsmanScore;
 import com.cric.scorer.DTOs.output.MatchInfo;
 import com.cric.scorer.PersonaServices.CommonService;
 import com.cric.scorer.entity.Player;
@@ -41,7 +42,8 @@ public class CommonController {
         return ResponseEntity.ok(playing11);
     }
     @GetMapping("/get/{matchId}/{Team}/{role}")
-    public ResponseEntity<Player> getPlayerByRole(@PathVariable("matchId") long matchId, @PathVariable("Team") String teamName,
+    public ResponseEntity<Player> getPlayerByRole(@PathVariable("matchId") long matchId,
+                                                  @PathVariable("Team") String teamName,
                                                   @PathVariable("role")String role)
     {
         Player player =this.commonService.getPlayerBasedOnRole(matchId,teamName,role);
@@ -56,6 +58,13 @@ public class CommonController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else
             return ResponseEntity.ok(remainingPlayers);
-
     }
+    @GetMapping("/battingStats/{matchId}/{teamName}")
+    public ResponseEntity<List<BatsmanScore>> getTest(@PathVariable(name = "matchId") long matchId, @PathVariable("teamName") String teamName)
+    {
+        List<BatsmanScore> battingStata=this.commonService.getBattingStatsOfTeam(matchId,teamName);
+        return  ResponseEntity.ok(battingStata);
+    }
+    
+    
 }

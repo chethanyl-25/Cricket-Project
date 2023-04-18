@@ -1,11 +1,14 @@
 package com.cric.scorer.PersonaServices.Impl;
 
+import com.cric.scorer.DTOs.output.BatsmanScore;
 import com.cric.scorer.DTOs.output.MatchInfo;
+import com.cric.scorer.DTOs.output.WicketDetails;
 import com.cric.scorer.EntityServices.*;
 import com.cric.scorer.PersonaServices.CommonService;
 import com.cric.scorer.entity.MatchDetails;
 import com.cric.scorer.entity.Player;
 import com.cric.scorer.entity.Team;
+import com.cric.scorer.entity.Wicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class CommonServiceImpl implements CommonService {
     private PlayerService playerService;
     @Autowired
     private WicketService wicketService;
+    @Autowired
+    private  ScoreDetailsService scoreDetailsService;
     @Override
     public MatchInfo getMatchDetails(long id) {
 
@@ -51,7 +56,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public List<Player> getSquad(long matchId, String teamName) {
-        long teamId=this.teamService.findByTeamNameAndMatch(teamName,matchId);
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchId);
         List<Long> playersSquad=this.teamSquadService.getSquad(teamId);
         List<Player> playerList =new ArrayList<>();
         for(Long playerId:playersSquad){
@@ -65,7 +70,7 @@ public class CommonServiceImpl implements CommonService {
     }
     @Override
     public List<Player> getPlayin11(long matchId, String teamName) {
-        long teamId=this.teamService.findByTeamNameAndMatch(teamName,matchId);
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchId);
         List<Long> playersIdList=this.teamSquadService.getPlaying11(teamId);
         List<Player> playing11=new ArrayList<>();
         for(Long playerId:playersIdList)
@@ -78,7 +83,7 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public Player getPlayerBasedOnRole(long matchId, String teamName, String role) {
-        long teamId=this.teamService.findByTeamNameAndMatch(teamName,matchId);
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchId);
         Player player =null;
         Team team=this.teamService.findById(teamId);
         if(role.equalsIgnoreCase("C"))
@@ -106,5 +111,33 @@ public class CommonServiceImpl implements CommonService {
             }
         }
        return remainingPlayers;
+    }
+
+    @Override
+    public List<BatsmanScore> getBattingStatsOfTeam(long matchId, String teamName) {
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchId);
+        List<Long> playedBatsmenId=this.scoreDetailsService.getPlayedBatsmenId(matchId,teamId);
+        List<BatsmanScore> battingStats=new ArrayList<>();
+        for(Long playerId:playedBatsmenId)
+        {
+            BatsmanScore batsmanScore=this.getIndividualBatsmanScore(matchId,teamId,playerId);
+            battingStats.add(batsmanScore);
+            this.getWicketDetails(matchId,playerId);
+        }
+        return battingStats;
+    }
+
+    @Override
+    public BatsmanScore getIndividualBatsmanScore(long matchId, long teamId, long playerId) {
+        BatsmanScore batsmanScore=this.scoreDetailsService.getIndividualBatsmanScore(matchId,teamId,playerId);
+        batsmanScore.setPlayerName(this.playerService.findById(playerId).getName());
+        return batsmanScore;
+    }
+
+    @Override
+    public WicketDetails getWicketDetails(long matchId, long playerId) {
+        Wicket wicket=this.wicketService.findWicket(matchId,playerId);
+        System.out.println(wicket);
+        return null;
     }
 }

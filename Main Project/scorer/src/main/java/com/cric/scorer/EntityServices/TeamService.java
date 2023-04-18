@@ -10,5 +10,4 @@ public interface TeamService {
 
     void deleteById(long teamId);
 
-    long findByTeamNameAndMatch(String teamName, long matchId);
 }

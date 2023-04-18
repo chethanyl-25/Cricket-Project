@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -41,4 +44,8 @@ public class ScoreDetails {
     @OneToOne
     @JoinColumn(name = "wicket_id",referencedColumnName = "wicketId")
     private Wicket wicket;
+
+    @Column
+    @CreationTimestamp
+    private Timestamp creationTime;
 }

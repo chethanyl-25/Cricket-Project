@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2023 at 02:30 PM
+-- Generation Time: Apr 18, 2023 at 07:37 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.14
 
@@ -27,15 +27,18 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `match_details` (`match_id`, `overs`, `result`, `status`, `toss_selection`, `umpires`, `man_of_the_match`, `team_a`, `team_b`, `toss_won`, `won_by`) VALUES
-(1, 20, 'India won by 34 runs', 'Completed', 'bat', 'Ravi Shastri, Davidson', 1, 1, 2, 1, 1),
-(2, 10, NULL, '', NULL, NULL, NULL, 3, 4, NULL, NULL);
+(1, 3, 'India won by 34 runs', 'Completed', 'bat', 'Ravi Shastri, Davidson', 1, 1, 2, 1, 1),
+(2, 5, NULL, 'upcoming', NULL, NULL, NULL, 3, 4, NULL, NULL),
+(4, 20, NULL, 'upcoming', NULL, NULL, NULL, 7, 8, NULL, NULL);
 
 --
 -- Dumping data for table `match_seq`
 --
 
 INSERT INTO `match_seq` (`next_val`) VALUES
-(3);
+(1),
+(1),
+(5);
 
 --
 -- Dumping data for table `player`
@@ -70,67 +73,120 @@ INSERT INTO `player` (`player_id`, `batting_style`, `bowling_style`, `name`, `na
 (26, 'Right Hand', NULL, 'Steve Smith', 'Australia', 'Batsman'),
 (27, 'Right Hand', NULL, 'Marnus Labuschane', 'Australia', 'Batsman'),
 (28, 'Right Hand', 'Right-arm Fast', 'Marcus Stoinis', 'Australia', 'All-Rounder'),
-(29, 'Right Hand', NULL, 'Josh Inglis', 'Australia', 'Batsman');
+(29, 'Right Hand', NULL, 'Josh Inglis', 'Australia', 'Batsman'),
+(30, 'Right Hand', NULL, 'Anil', 'Indian', 'Batsman'),
+(31, 'Right hand', NULL, 'Avishka Fernando', 'Sri Lanka', 'Batsman'),
+(32, 'Right hand', NULL, 'Pathum Nisanka', 'Sri Lanka', 'Batsman'),
+(33, 'Right hand', NULL, 'Kusal Mendis', 'Sri Lanka', 'Batsman'),
+(34, 'Right hand', NULL, ' Kusal Perera', 'Sri Lanka', 'Batsman'),
+(35, 'Right hand', NULL, ' Dhananjaya deSilva', 'Sri Lanka', 'Batsman'),
+(36, 'Right hand', 'Right Arm Fast', ' Asalanka', 'Sri Lanka', 'All Rounder'),
+(37, 'Right hand', 'Right Arm Fast', ' Shanaka', 'Sri Lanka', 'All Rounder'),
+(38, 'Right hand', 'Right Arm Fast', ' Hasaranga', 'Sri Lanka', 'All Rounder'),
+(39, 'Right hand', 'Right Off Spin', ' Theeksahna', 'Sri Lanka', 'Bowler'),
+(40, 'Right hand', 'Right Arm Fast', 'Rajatha', 'Sri Lanka', 'Bowler'),
+(41, 'Right hand', 'Right Arm Fast', 'Lahiru Kumara', 'Sri Lanka', 'Bowler'),
+(42, 'Left hand', 'Left Arm Fast', 'Madhusudan', 'Sri Lanka', 'Bowler'),
+(43, 'Left hand', 'Left Arm Fast', 'Karunarathne', 'Sri Lanka', 'All rounder');
 
 --
 -- Dumping data for table `player_seq`
 --
 
 INSERT INTO `player_seq` (`next_val`) VALUES
-(30);
+(44);
 
 --
 -- Dumping data for table `score_details`
 --
 
-INSERT INTO `score_details` (`ball_id`, `ball_no`, `event`, `overs`, `runs`, `batting_team_id`, `bowler_id`, `bowling_team_id`, `match_id`, `non_striker_id`, `striker_id`, `wicket_id`) VALUES
-(1, 1, 'normal', 0, 6, 1, 18, 2, 1, 2, 1, NULL),
-(2, 2, 'normal', 0, 2, 1, 18, 2, 1, 2, 1, NULL),
-(3, 3, 'normal', 0, 1, 1, 18, 2, 1, 2, 1, NULL),
-(4, 4, 'wicket', 0, 1, 1, 18, 2, 1, 1, 2, 1),
-(5, 4, 'wide', 0, 1, 1, 18, 2, 1, 1, 3, NULL),
-(6, 5, 'wicket', 0, 0, 1, 18, 2, 1, 1, 3, 2),
-(7, 6, 'normal', 0, 0, 1, 18, 2, 1, 1, 4, NULL),
-(8, 1, 'normal', 1, 2, 1, 16, 2, 1, 4, 1, NULL),
-(9, 2, 'normal', 1, 0, 1, 16, 2, 1, 4, 1, NULL),
-(10, 3, 'wide', 1, 0, 1, 16, 2, 1, 4, 1, NULL),
-(11, 3, 'normal', 1, 1, 1, 16, 2, 1, 4, 1, NULL),
-(12, 4, 'normal', 1, 4, 1, 16, 2, 1, 1, 4, NULL),
-(13, 5, 'normal', 1, 6, 1, 16, 2, 1, 1, 4, NULL),
-(14, 6, 'wicket', 1, 0, 1, 16, 2, 1, 1, 4, 3),
-(15, 1, 'normal', 2, 2, 1, 16, 2, 1, 5, 1, NULL),
-(16, 2, 'normal', 2, 4, 1, 16, 2, 1, 5, 1, NULL),
-(17, 3, 'normal', 2, 1, 1, 16, 2, 1, 5, 1, NULL),
-(18, 4, 'normal', 2, 1, 1, 16, 2, 1, 1, 5, NULL),
-(19, 5, 'normal', 2, 2, 1, 16, 2, 1, 5, 1, NULL),
-(20, 6, 'wicket', 2, 0, 1, 16, 2, 1, 1, 5, 4),
-(21, 1, 'normal', 0, 2, 2, 9, 1, 1, 26, 24, NULL),
-(22, 2, 'normal', 0, 0, 2, 9, 1, 1, 26, 24, NULL),
-(23, 3, 'normal', 0, 1, 2, 9, 1, 1, 26, 24, NULL),
-(24, 4, 'normal', 0, 4, 2, 9, 1, 1, 24, 26, NULL),
-(25, 5, 'normal', 0, 6, 2, 9, 1, 1, 24, 26, NULL),
-(26, 6, 'noBall', 0, 2, 2, 9, 1, 1, 24, 26, NULL),
-(27, 6, 'normal', 0, 6, 2, 9, 1, 1, 24, 26, NULL),
-(28, 1, 'normal', 1, 0, 2, 9, 1, 1, 26, 24, NULL),
-(29, 2, 'wicket', 1, 0, 2, 10, 1, 1, 26, 24, 5),
-(30, 3, 'normal', 1, 4, 2, 10, 1, 1, 26, 27, NULL),
-(31, 4, 'normal', 1, 0, 2, 10, 1, 1, 26, 27, NULL),
-(32, 5, 'wide', 1, 0, 2, 10, 1, 1, 26, 27, NULL),
-(33, 5, 'normal', 1, 0, 2, 10, 1, 1, 26, 27, NULL),
-(34, 6, 'normal', 1, 1, 2, 10, 1, 1, 26, 27, 6),
-(35, 1, 'normal', 2, 4, 2, 8, 1, 1, 22, 26, NULL),
-(36, 2, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
-(37, 3, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
-(38, 4, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
-(39, 5, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
-(40, 6, 'normal', 2, 1, 2, 8, 1, 1, 22, 26, NULL);
+INSERT INTO `score_details` (`ball_id`, `ball_no`, `creation_time`, `event`, `overs`, `runs`, `batting_team_id`, `bowler_id`, `bowling_team_id`, `match_id`, `non_striker_id`, `striker_id`, `wicket_id`) VALUES
+(1, 1, '2023-04-13 12:23:21', 'normal', 0, 6, 1, 18, 2, 1, 7, 1, NULL),
+(2, 2, NULL, 'normal', 0, 2, 1, 18, 2, 1, 7, 1, NULL),
+(3, 3, NULL, 'normal', 0, 1, 1, 18, 2, 1, 7, 1, NULL),
+(4, 4, NULL, 'wicket', 0, 0, 1, 18, 2, 1, 1, 7, 1),
+(5, 5, NULL, 'wide', 0, 1, 1, 18, 2, 1, 1, 3, NULL),
+(6, 5, NULL, 'wicket', 0, 0, 1, 18, 2, 1, 1, 3, 2),
+(7, 0, NULL, 'normal', 1, 0, 1, 18, 2, 1, 1, 4, NULL),
+(8, 1, NULL, 'normal', 1, 2, 1, 16, 2, 1, 4, 1, NULL),
+(9, 2, NULL, 'normal', 1, 0, 1, 16, 2, 1, 4, 1, NULL),
+(10, 3, NULL, 'wide', 1, 0, 1, 16, 2, 1, 4, 1, NULL),
+(11, 3, NULL, 'normal', 1, 1, 1, 16, 2, 1, 4, 1, NULL),
+(12, 4, NULL, 'normal', 1, 4, 1, 16, 2, 1, 1, 4, NULL),
+(13, 5, NULL, 'normal', 1, 6, 1, 16, 2, 1, 1, 4, NULL),
+(14, 0, NULL, 'wicket', 2, 0, 1, 16, 2, 1, 1, 4, 3),
+(15, 1, NULL, 'normal', 2, 2, 1, 16, 2, 1, 5, 1, NULL),
+(16, 2, NULL, 'normal', 2, 4, 1, 16, 2, 1, 5, 1, NULL),
+(17, 3, NULL, 'normal', 2, 1, 1, 16, 2, 1, 5, 1, NULL),
+(18, 4, NULL, 'normal', 2, 1, 1, 16, 2, 1, 1, 5, NULL),
+(19, 5, NULL, 'normal', 2, 2, 1, 16, 2, 1, 5, 1, NULL),
+(21, 1, NULL, 'normal', 0, 2, 2, 9, 1, 1, 26, 24, NULL),
+(22, 2, NULL, 'normal', 0, 0, 2, 9, 1, 1, 26, 24, NULL),
+(23, 3, NULL, 'normal', 0, 1, 2, 9, 1, 1, 26, 24, NULL),
+(24, 4, NULL, 'normal', 0, 4, 2, 9, 1, 1, 24, 26, NULL),
+(25, 5, NULL, 'normal', 0, 6, 2, 9, 1, 1, 24, 26, NULL),
+(26, 0, NULL, 'noBall', 1, 2, 2, 9, 1, 1, 24, 26, NULL),
+(27, 0, NULL, 'normal', 1, 6, 2, 9, 1, 1, 24, 26, NULL),
+(28, 1, NULL, 'normal', 1, 0, 2, 9, 1, 1, 26, 24, NULL),
+(29, 2, NULL, 'wicket', 1, 0, 2, 10, 1, 1, 26, 24, 5),
+(30, 3, NULL, 'normal', 1, 4, 2, 10, 1, 1, 26, 27, NULL),
+(31, 4, NULL, 'normal', 1, 0, 2, 10, 1, 1, 26, 27, NULL),
+(32, 5, NULL, 'wide', 1, 0, 2, 10, 1, 1, 26, 27, NULL),
+(33, 5, NULL, 'normal', 1, 0, 2, 10, 1, 1, 26, 27, NULL),
+(34, 0, NULL, 'wicket', 2, 1, 2, 10, 1, 1, 26, 27, 6),
+(35, 1, NULL, 'normal', 2, 4, 2, 8, 1, 1, 22, 26, NULL),
+(36, 2, NULL, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
+(37, 3, NULL, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
+(38, 4, NULL, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
+(39, 5, NULL, 'normal', 2, 0, 2, 8, 1, 1, 22, 26, NULL),
+(40, 0, NULL, 'normal', 3, 1, 2, 8, 1, 1, 22, 26, NULL),
+(41, 1, '2023-04-14 18:17:25', 'normal', 0, 2, 4, 39, 3, 2, 2, 1, NULL),
+(42, 2, '2023-04-14 18:19:20', 'normal', 0, 4, 4, 39, 3, 2, 2, 1, NULL),
+(43, 3, '2023-04-14 18:19:34', 'normal', 0, 1, 4, 39, 3, 2, 2, 1, NULL),
+(44, 4, '2023-04-14 18:20:35', 'normal', 0, 4, 4, 39, 3, 2, 1, 2, NULL),
+(45, 5, '2023-04-14 18:20:54', 'normal', 0, 2, 4, 39, 3, 2, 1, 2, NULL),
+(46, 0, '2023-04-14 18:21:36', 'normal', 1, 1, 4, 39, 3, 2, 1, 2, NULL),
+(47, 1, '2023-04-14 18:22:16', 'normal', 1, 6, 4, 40, 3, 2, 1, 2, NULL),
+(48, 2, '2023-04-14 18:22:58', 'normal', 1, 2, 4, 40, 3, 2, 1, 2, NULL),
+(49, 3, '2023-04-14 18:23:05', 'normal', 1, 6, 4, 40, 3, 2, 1, 2, NULL),
+(50, 4, '2023-04-14 18:23:15', 'normal', 1, 2, 4, 40, 3, 2, 1, 2, NULL),
+(51, 5, '2023-04-14 18:23:28', 'normal', 1, 4, 4, 40, 3, 2, 1, 2, NULL),
+(52, 0, '2023-04-14 18:23:44', 'normal', 2, 1, 4, 40, 3, 2, 1, 2, NULL),
+(53, 1, '2023-04-14 18:24:06', 'normal', 2, 3, 4, 38, 3, 2, 1, 2, NULL),
+(54, 2, '2023-04-14 18:24:45', 'normal', 2, 4, 4, 38, 3, 2, 2, 1, NULL),
+(55, 3, '2023-04-14 18:25:13', 'wide', 2, 0, 4, 38, 3, 2, 2, 1, NULL),
+(56, 3, '2023-04-14 18:25:31', 'normal', 2, 2, 4, 38, 3, 2, 2, 1, NULL),
+(57, 4, '2023-04-14 18:25:41', 'normal', 2, 6, 4, 38, 3, 2, 2, 1, NULL),
+(58, 5, '2023-04-14 18:28:17', 'wicket', 2, 0, 4, 38, 3, 2, 2, 1, 7),
+(59, 0, '2023-04-14 18:29:47', 'normal', 3, 0, 4, 38, 3, 2, 2, 3, NULL),
+(60, 1, '2023-04-14 18:30:28', 'normal', 0, 0, 3, 9, 4, 2, 32, 31, NULL),
+(61, 2, '2023-04-14 18:30:39', 'normal', 0, 2, 3, 9, 4, 2, 32, 31, NULL),
+(62, 3, '2023-04-14 18:30:51', 'normal', 0, 1, 3, 9, 4, 2, 32, 31, NULL),
+(63, 4, '2023-04-14 18:31:20', 'normal', 0, 2, 3, 9, 4, 2, 31, 32, NULL),
+(64, 5, '2023-04-14 18:31:43', 'wide', 0, 0, 3, 9, 4, 2, 31, 32, NULL),
+(65, 5, '2023-04-14 18:31:59', 'normal', 0, 2, 3, 9, 4, 2, 31, 32, NULL),
+(66, 0, '2023-04-14 18:32:14', 'normal', 1, 1, 3, 9, 4, 2, 31, 32, NULL),
+(67, 1, '2023-04-14 18:32:46', 'normal', 1, 6, 3, 10, 4, 2, 31, 32, NULL),
+(68, 2, '2023-04-14 18:33:01', 'normal', 1, 3, 3, 10, 4, 2, 31, 32, NULL),
+(69, 3, '2023-04-14 18:33:16', 'normal', 1, 2, 3, 10, 4, 2, 32, 31, NULL),
+(70, 4, '2023-04-14 18:35:42', 'wicket', 1, 0, 3, 10, 4, 2, 32, 31, 8),
+(71, 5, '2023-04-14 18:36:10', 'wicket', 1, 0, 3, 10, 4, 2, 32, 33, 9),
+(72, 0, '2023-04-14 18:36:36', 'wicket', 2, 0, 3, 10, 4, 2, 32, 34, 10),
+(73, 1, '2023-04-14 18:37:53', 'normal', 2, 2, 3, 8, 4, 2, 34, 32, NULL),
+(74, 2, '2023-04-14 18:38:02', 'normal', 2, 2, 3, 8, 4, 2, 34, 32, NULL),
+(75, 3, '2023-04-14 18:38:13', 'normal', 2, 3, 3, 8, 4, 2, 34, 32, NULL),
+(76, 4, '2023-04-14 18:38:27', 'normal', 2, 2, 3, 8, 4, 2, 32, 34, NULL),
+(77, 5, '2023-04-14 18:38:43', 'wide', 2, 0, 3, 8, 4, 2, 32, 34, NULL),
+(78, 0, '2023-04-14 18:39:16', 'normal', 3, 0, 3, 8, 4, 2, 32, 34, NULL);
 
 --
 -- Dumping data for table `score_details_seq`
 --
 
 INSERT INTO `score_details_seq` (`next_val`) VALUES
-(41);
+(1),
+(79),
+(79);
 
 --
 -- Dumping data for table `team`
@@ -139,15 +195,19 @@ INSERT INTO `score_details_seq` (`next_val`) VALUES
 INSERT INTO `team` (`team_id`, `team_name`, `captain_id`, `match_id`, `wicket_keeper_id`) VALUES
 (1, 'India', 2, 1, 1),
 (2, 'Australia', 22, 1, 23),
-(3, 'Sri Lanka', NULL, NULL, NULL),
-(4, 'India', NULL, NULL, NULL);
+(3, 'Sri Lanka', 37, 2, 35),
+(4, 'India', 3, 2, 1),
+(7, 'RCB', NULL, 4, NULL),
+(8, 'LSG', NULL, 4, NULL);
 
 --
 -- Dumping data for table `team_seq`
 --
 
 INSERT INTO `team_seq` (`next_val`) VALUES
-(5);
+(1),
+(1),
+(9);
 
 --
 -- Dumping data for table `team_squad`
@@ -156,8 +216,10 @@ INSERT INTO `team_seq` (`next_val`) VALUES
 INSERT INTO `team_squad` (`player_id`, `team_id`, `is_playing`) VALUES
 (1, 1, 1),
 (1, 4, 0),
+(1, 7, 0),
 (2, 1, 1),
 (2, 4, 0),
+(2, 7, 0),
 (3, 1, 1),
 (3, 4, 0),
 (4, 1, 1),
@@ -197,26 +259,45 @@ INSERT INTO `team_squad` (`player_id`, `team_id`, `is_playing`) VALUES
 (26, 2, 1),
 (27, 2, 1),
 (28, 2, 1),
-(29, 2, 0);
+(29, 2, 0),
+(31, 3, 1),
+(32, 3, 1),
+(33, 3, 1),
+(34, 3, 1),
+(35, 3, 1),
+(36, 3, 1),
+(37, 3, 1),
+(38, 3, 1),
+(39, 3, 1),
+(40, 3, 1),
+(41, 3, 1),
+(42, 3, 0),
+(43, 3, 0);
 
 --
 -- Dumping data for table `wicket`
 --
 
 INSERT INTO `wicket` (`wicket_id`, `wicket_type`, `batsman_id`, `bowler_id`, `match_id`, `taken_by`) VALUES
-(1, 'bowled', 2, 18, 1, NULL),
+(1, 'bowled', 7, 18, 1, NULL),
 (2, 'cought', 3, 18, 1, 16),
 (3, 'caught', 4, 16, 1, 18),
 (4, 'stumped', 5, 16, 1, 23),
 (5, 'bowled', 24, 10, 1, NULL),
-(6, 'runout', 27, 10, 1, 3);
+(6, 'runout', 27, 10, 1, 3),
+(7, 'bowled', 1, 38, 2, 38),
+(8, 'bowled', 31, 10, 2, 10),
+(9, 'bowled', 33, 10, 2, 10),
+(10, 'bowled', 33, 10, 2, 10);
 
 --
 -- Dumping data for table `wicket_seq`
 --
 
 INSERT INTO `wicket_seq` (`next_val`) VALUES
-(7);
+(1),
+(11),
+(11);
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

@@ -31,7 +31,7 @@ public class ScorerServiceImpl implements ScorerService {
     private WicketService wicketService;
     @Override
     public void selectPlaying11(long matchId, String teamName, List<Player> playerList) {
-        long teamId=this.teamService.findByTeamNameAndMatch(teamName,matchId);
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchId);
         Team team=this.teamService.findById(teamId);
         TeamSquad teamSquad=new TeamSquad();
         teamSquad.setTeam(team);
@@ -44,7 +44,7 @@ public class ScorerServiceImpl implements ScorerService {
     }
     @Override
     public void setCaptaionAndWicketKeeper(long matchId, String teamName, List<Player> playerList) {
-        long teamId=this.teamService.findByTeamNameAndMatch(teamName,matchId);
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(teamName,matchId);
         Team team=this.teamService.findById(teamId);
         Player captain= playerList.get(0);
         Player wicketKeeper= playerList.get(1);
@@ -54,7 +54,7 @@ public class ScorerServiceImpl implements ScorerService {
     }
     @Override
     public void updateTossAndUmpire(long matchId, Toss toss) {
-        long teamId=this.teamService.findByTeamNameAndMatch(toss.getTossWon(),matchId);
+        long teamId=this.teamService.findTeamIdByTeamNameAndMatchId(toss.getTossWon(),matchId);
         Team team=this.teamService.findById(teamId);
         MatchDetails matchDetails=this.matchDetailsService.findById(matchId);
         matchDetails.setTossWon(team);
@@ -72,8 +72,8 @@ public class ScorerServiceImpl implements ScorerService {
         scoreDetails.setOvers(updateScore.getOvers());
         scoreDetails.setRuns(updateScore.getRuns());
         scoreDetails.setBallNo(updateScore.getBallNo());
-        long bowlingTeamId=this.teamService.findByTeamNameAndMatch(updateScore.getBowlingTeamName(), matchId);
-        long battingTeamId=this.teamService.findByTeamNameAndMatch(updateScore.getBattingTeamName(), matchId);
+        long bowlingTeamId=this.teamService.findTeamIdByTeamNameAndMatchId(updateScore.getBowlingTeamName(), matchId);
+        long battingTeamId=this.teamService.findTeamIdByTeamNameAndMatchId(updateScore.getBattingTeamName(), matchId);
         Team battingTeam=this.teamService.findById(battingTeamId);
         Team bowlingTeam=this.teamService.findById(bowlingTeamId);
         Player striker=this.playerService.findById(updateScore.getStrikerId());

@@ -16,10 +16,10 @@ public class ExceptionHandling {
     public ResponseEntity<Object> noSuchElement(NoSuchElementException e){
         return new ResponseEntity<>("No data with given information", HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler(StackOverflowError.class)
-    public ResponseEntity<Object> stackOverFlowError(StackOverflowError stackOverflowError){
-        return new ResponseEntity<>("Some Internal Server error",HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(StackOverflowError.class)
+//    public ResponseEntity<Object> stackOverFlowError(StackOverflowError stackOverflowError){
+//        return new ResponseEntity<>("Some Internal Server error",HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
     @ExceptionHandler(AopInvocationException.class)
     public ResponseEntity<Object> aopInvocationException(AopInvocationException e)
     {

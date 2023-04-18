@@ -16,17 +16,17 @@ public class Wicket {
     @SequenceGenerator(name = "wicket_seq",sequenceName = "wicket_seq",allocationSize = 1,initialValue = 1)
     @GeneratedValue(generator = "wicket_seq",strategy = GenerationType.SEQUENCE)
     private long wicketId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "bowler_id",referencedColumnName = "playerId")
     private Player blower;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "batsman_id",referencedColumnName = "playerId")
     private Player batsman;
     private String wicketType;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "taken_by",referencedColumnName = "playerId")
     private Player takenBy;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "match_id",referencedColumnName = "matchId")
     private MatchDetails matchDetails;
 }
